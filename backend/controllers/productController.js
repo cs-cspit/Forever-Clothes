@@ -67,6 +67,61 @@ const removeProduct = async (req, res) => {
     }
 }
 
+// function for updating an existing product
+const updateProduct = async (req, res) => {
+    try {
+        const {
+            id,
+            name,
+            description,
+            price,
+            category,
+            subCategory,
+            sizes,
+            bestseller
+        } = req.body
+
+        if (!id) {
+            return res.json({ success: false, message: 'Product id is required' })
+        }
+
+        const updateData = {}
+
+        if (name !== undefined) updateData.name = name
+        if (description !== undefined) updateData.description = description
+        if (price !== undefined) updateData.price = Number(price)
+        if (category !== undefined) updateData.category = category
+        if (subCategory !== undefined) updateData.subCategory = subCategory
+        if (bestseller !== undefined) {
+            updateData.bestseller = (bestseller === true || bestseller === 'true') ? true : false
+        }
+        if (sizes !== undefined) {
+            try {
+                updateData.sizes = Array.isArray(sizes) ? sizes : JSON.parse(sizes)
+            } catch (e) {
+                return res.json({ success: false, message: 'Invalid sizes format' })
+            }
+        }
+
+        // Note: Image updates can be added later via multipart form uploads if needed
+
+        const updated = await productModel.findByIdAndUpdate(
+            id,
+            { $set: updateData },
+            { new: true }
+        )
+
+        if (!updated) {
+            return res.json({ success: false, message: 'Product not found' })
+        }
+
+        res.json({ success: true, message: 'Product Updated', product: updated })
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+}
+
 //function for single product info
 const singleProduct = async (req, res) => {
     try {
@@ -81,4 +136,4 @@ const singleProduct = async (req, res) => {
 
 }
 
-export { addProduct, listProduct, removeProduct, singleProduct }
+export { addProduct, listProduct, removeProduct, updateProduct, singleProduct }
