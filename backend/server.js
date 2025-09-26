@@ -1,4 +1,5 @@
 import express from 'express'
+<<<<<<< HEAD
 import cors from 'cors'
 import 'dotenv/config'
 import connectDB from './config/mongodb.js'
@@ -25,3 +26,37 @@ app.get('/',(req,res)=>{
 })
 
 app.listen(port, ()=> console.log("Server Is Started On Port : "+ port))
+=======
+import connectDB from './config/mongodb.js'
+import connectCloudinary from './config/cloudinary.js';
+import cors from 'cors'
+import 'dotenv/config' 
+import userRouter from './routes/userRoute.js';
+import productRouter from './routes/productRoute.js';
+import cartRouter from './routes/cartRoute.js';
+import orderRouter from './routes/orderRoute.js';
+
+// App Config-----------------------------------------------------
+const app = express();
+const port = process.env.PORT || 4000;
+
+// Connection-----------------------------------------------------
+connectDB();    
+connectCloudinary();
+
+// Middlewares----------------------------------------------------
+app.use(express.json());
+app.use(cors()); // access backend from apy IP
+
+// API end-points-------------------------------------------------
+app.use('/api/user',userRouter);
+app.use('/api/product',productRouter);
+app.use('/api/cart',cartRouter);
+app.use('/api/order',orderRouter);
+
+app.get('/', (req, res) => {
+    res.send("API Working")
+});
+
+app.listen(port,()=>console.log('Server started on port : ' + port));
+>>>>>>> 461b493 (Admin dashboard changes)

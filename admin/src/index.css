@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+=======
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap');
+>>>>>>> 461b493 (Admin dashboard changes)
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 *{
+<<<<<<< HEAD
   font-family: Outfit;
 }
 
@@ -17,3 +22,18 @@ select,input,textarea{
   background-color: #ffebf5;
   border-color: #C586A5;
 }
+=======
+    font-family: 'Outfit', sans-serif;
+}
+
+select,input,textarea{
+    border:1px solid #d1d5db;
+    outline-color : #9ca3af;
+    border-radius : 0.5rem
+}
+
+.active {
+    background-color : #f1eff0;
+    border-color : #524e50;
+}
+>>>>>>> 461b493 (Admin dashboard changes)

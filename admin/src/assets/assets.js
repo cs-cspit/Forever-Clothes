@@ -10,4 +10,9 @@ export const assets = {
     order_icon,
     upload_area,
     parcel_icon
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 461b493 (Admin dashboard changes)

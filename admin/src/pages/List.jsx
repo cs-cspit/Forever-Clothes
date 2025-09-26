@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { backendUrl, currency } from '../App'
@@ -50,10 +51,93 @@ const List = ({token}) => {
       <div className='flex flex-col gap-2'>
         {/* --------- List Table Title --------- */}
         <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm'>
+=======
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { currency } from '../App';
+import ConfirmationDialog from '../components/ConfirmationDialog';
+
+// Make sure backendUrl is imported or defined properly
+import { backendUrl } from '../App';
+
+const List = ({ token }) => {
+  const [list, setList] = useState([]);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+
+  const fetchList = async () => {
+    try {
+      console.log('Fetching from URL:', backendUrl + '/api/product/list');
+      console.log('Using token:', token);
+
+      const response = await axios.get(backendUrl + '/api/product/list', {
+        headers: { token }
+      });
+
+      if (response.data.success) {
+        setList(response.data.products);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || 'Network Error');
+    }
+  };
+
+  const handleDeleteClick = (product) => {
+    setProductToDelete(product);
+    setShowConfirmDialog(true);
+  };
+
+  const removeProduct = async () => {
+    if (!productToDelete) return;
+    
+    try {
+      const response = await axios.post(
+        backendUrl + '/api/product/remove',
+        { id: productToDelete._id },
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        await fetchList();
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || 'Network Error');
+    } finally {
+      setShowConfirmDialog(false);
+      setProductToDelete(null);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmDialog(false);
+    setProductToDelete(null);
+  };
+
+  // Run fetchList once on component mount
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+  return (
+    <>
+      <p className="mb-2">All products List</p>
+      <div>
+        {/* List table header */}
+        <div className="hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm">
+>>>>>>> 461b493 (Admin dashboard changes)
           <b>Image</b>
           <b>Name</b>
           <b>Category</b>
           <b>Price</b>
+<<<<<<< HEAD
           <b className='text-center'>Action</b>
         </div>
         {/* --------- Product List --------- */}
@@ -74,3 +158,43 @@ const List = ({token}) => {
 }
 
 export default List
+=======
+          <b className="text-center">Action</b>
+        </div>
+
+        {/* Product list */}
+        {list.map((item, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-2 py-1 px-2 border text-sm"
+          >
+            <img className="w-14" src={item.image[0]} alt={item.name} />
+            <p>{item.name}</p>
+            <p>{item.category}</p>
+            <p>{currency}{item.price}</p>
+            <p
+              onClick={() => handleDeleteClick(item)}
+              className="text-right md:text-center cursor-pointer text-lg hover:text-red-600 transition-colors"
+            >
+              X
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Confirmation Dialog */}
+      <ConfirmationDialog
+        isOpen={showConfirmDialog}
+        onClose={handleCancelDelete}
+        onConfirm={removeProduct}
+        title="Delete Product"
+        message={`Are you sure you want to delete "${productToDelete?.name}"? This action cannot be undone.`}
+        confirmText="Yes, Delete"
+        cancelText="Cancel"
+      />
+    </>
+  );
+};
+
+export default List;
+>>>>>>> 461b493 (Admin dashboard changes)

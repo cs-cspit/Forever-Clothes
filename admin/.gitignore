@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+<<<<<<< HEAD
+=======
+*.env
+>>>>>>> 461b493 (Admin dashboard changes)
 
 # Editor directories and files
 .vscode/*
@@ -22,4 +26,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
 .env
+=======
+>>>>>>> 461b493 (Admin dashboard changes)
