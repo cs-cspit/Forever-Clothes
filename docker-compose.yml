@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ecommerce-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://backend:4000
+    depends_on:
+      - backend
+    networks:
+      - ecommerce-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ecommerce-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/ecommerce
+    depends_on:
+      - mongo
+    networks:
+      - ecommerce-net
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: ecommerce-admin
+    ports:
+      - "5000:5000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://backend:4000
+    depends_on:
+      - backend
+    networks:
+      - ecommerce-net
+
+  mongo:
+    image: mongo:6
+    container_name: ecommerce-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - ecommerce-net
+
+networks:
+  ecommerce-net:
+
+volumes:
+  mongo_data:

@@ -1,7 +1,7 @@
 import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
 import validator from "validator"; //for email validator
-import bcrypt from "bcrypt"; //for password bcrypt
+import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken'; //for token
 import dotenv from 'dotenv';
 dotenv.config();
