@@ -9,7 +9,7 @@ const { products, search, showSearch } = useContext(ShopContext);
 const [showFilter, setShowFilter] = useState(false);
 const [filterProducts,setFilterProducts] = useState([]);
 const [category,setCategory] = useState([]);
-const [subCategory, setSubCategory] = useState([]);
+// subCategory removed
 const [sortType,setSortType] = useState('relavent');
 
 const toggleCategory = (e)=>{
@@ -20,13 +20,7 @@ const toggleCategory = (e)=>{
   }
 }
 
-const toggleSubCategory = (e)=>{
-  if(subCategory.includes(e.target.value)){
-    setSubCategory(prev => prev.filter(item => item !== e.target.value));
-  }else{
-    setSubCategory(prev => [...prev,e.target.value]);
-  }
-}
+// subCategory toggles removed
 
 const applyFilter = ()=>{
   let productsCopy = products.slice();
@@ -38,9 +32,7 @@ const applyFilter = ()=>{
   if(category.length > 0){
     productsCopy = productsCopy.filter(item => category.includes(item.category));
   }
-  if(subCategory.length > 0){
-    productsCopy = productsCopy.filter(item => subCategory.includes(item.subCategory));
-  }
+  // subCategory filter removed
   setFilterProducts(productsCopy)
 }
 
@@ -62,7 +54,7 @@ const sortProduct = ()=>{
 
 useEffect(()=>{
   applyFilter();
-},[products,category,subCategory,search,showSearch]) 
+},[products,category,search,showSearch]) 
 
 useEffect(()=>{
   sortProduct();
@@ -93,21 +85,7 @@ useEffect(()=>{
           </div>
         </div>
 
-        {/* Sub-Category filter */}
-        <div className={`border border-gray-300 pl-5 py-3 my-5 rounded-lg ${showFilter? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-medium'>TYPE</p>
-          <div className='flex flex-col gap-2 text-sm font-light text-gray-700'> 
-            <p className='flex gap-2'>
-              <input  className='w-3' type='checkbox' value={'Topwear'} onChange={toggleSubCategory}/>Topwear
-            </p>
-            <p className='flex gap-2'>
-              <input  className='w-3' type='checkbox' value={'Bottomwear'} onChange={toggleSubCategory}/>Bottomwear
-            </p>
-            <p className='flex gap-2'>
-              <input  className='w-3' type='checkbox' value={'Winterwear'} onChange={toggleSubCategory}/>Winterwear
-            </p>
-          </div>
-        </div>
+        {/* Type filter removed */}
       </div>
 
       {/* --------------Right Side------------------ */}
@@ -126,7 +104,7 @@ useEffect(()=>{
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
           {
             filterProducts.map((item, index) => (
-                <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} />
+                <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} quantity={item.quantity} />
             ))
           }
         </div>
