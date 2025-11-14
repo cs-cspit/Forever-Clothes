@@ -4,11 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview --port 3000",
-    "start": "vite preview --port 3000"
+    "preview": "vite preview --port 3000 --host 0.0.0.0"
   },
   "dependencies": {
     "@mapbox/node-pre-gyp": "^2.0.0",

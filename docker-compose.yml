@@ -7,13 +7,23 @@ services:
       dockerfile: Dockerfile
     container_name: ecommerce-frontend
     ports:
-      - "3000:3000"
+      - "5173:3000"
     environment:
-      - REACT_APP_BACKEND_URL=http://backend:4000
+      - REACT_APP_BACKEND_URL=http://13.204.23.20:4000
     depends_on:
       - backend
-    networks:
-      - ecommerce-net
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: ecommerce-admin
+    ports:
+      - "5174:5000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://13.204.23.20:4000
+    depends_on:
+      - backend
 
   backend:
     build:
@@ -23,25 +33,9 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - MONGO_URL=mongodb://mongo:27017/ecommerce
+      - MONGO_URL=mongodb+srv://ForeverClothes:ForeverClothes1234@cluster0.d8nqavb.mongodb.net
     depends_on:
       - mongo
-    networks:
-      - ecommerce-net
-
-  admin:
-    build:
-      context: ./admin
-      dockerfile: Dockerfile
-    container_name: ecommerce-admin
-    ports:
-      - "5000:5000"
-    environment:
-      - REACT_APP_BACKEND_URL=http://backend:4000
-    depends_on:
-      - backend
-    networks:
-      - ecommerce-net
 
   mongo:
     image: mongo:6
@@ -50,11 +44,6 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
-    networks:
-      - ecommerce-net
-
-networks:
-  ecommerce-net:
 
 volumes:
   mongo_data:

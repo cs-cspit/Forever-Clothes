@@ -10,7 +10,7 @@ import Login from './pages/Login'
 import PlaceOrder from './pages/PlaceOrder'
 import Orders from './pages/Orders'
 import Profile from './pages/Profile'
-import NavBar from './components/NavBar.jsx';
+import NavBar from "./components/Navbar.jsx";
 import Footer from './components/Footer'
 import { ToastContainer, toast } from 'react-toastify';
 import Verify from './pages/Verify'
@@ -32,7 +32,7 @@ const App = () => {
       />
       
       {/* Navigation */}
-      <Navbar />
+      <NavBar />
 
       {/* Main Content Area */}
       <main className="pt-16"> {/* Add padding-top to account for fixed navbar */}
