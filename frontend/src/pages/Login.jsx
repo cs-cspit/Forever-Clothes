@@ -117,6 +117,7 @@ const Login = () => {
                 className="text-sm font-medium text-black hover:text-gray-800 transition-colors"
               >
                 {/* Forgot your password? */}
+                {/*  */}
               </button>
             </div>
           )}
