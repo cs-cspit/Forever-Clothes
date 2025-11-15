@@ -10,10 +10,11 @@ import Login from './pages/Login'
 import PlaceOrder from './pages/PlaceOrder'
 import Orders from './pages/Orders'
 import Profile from './pages/Profile'
-import NavBar from "./components/NavBar.jsx";
 import Footer from './components/Footer'
 import { ToastContainer, toast } from 'react-toastify';
 import Verify from './pages/Verify'
+import NavBar from "./components/NavBar.jsx";
+
 
 const App = () => {
   return (
