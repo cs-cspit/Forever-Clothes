@@ -5,7 +5,7 @@ import { ShopContext } from '../context/ShopContext';
 import ConfirmationDialog from './ConfirmationDialog';
 import { toast } from 'react-toastify';
 
-const Navbar = () => {
+const NavBar = () => {
   const [visible,setVisible] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const { getCartCount, navigate, token, setToken, setCartItems, setUser } = useContext(ShopContext);
@@ -145,4 +145,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default NavBar
